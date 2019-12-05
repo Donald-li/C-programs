@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 //用来储存数组的行列信息，第一层表示矩阵数，第二层表示此个矩阵的行列数 
-int matrix[50];
+int matrix[50][2];
 //用来储存已计算过的结果
 int used[50][50];
 
@@ -19,9 +19,9 @@ int ReturnMatrixChain(int i,int j){
 		used[i][j] = 0;
 		return 0;
 	}
-	int u = ReturnMatrixChain(i,i)+ReturnMatrixChain(i+1,j)+MatrixMultiply(matrix[i],matrix[i+1],matrix[j]);
+	int u = ReturnMatrixChain(i,i)+ReturnMatrixChain(i+1,j)+MatrixMultiply(matrix[i][0],matrix[i][1],matrix[j][1]);
 	for(int k=i+1;k<j;k++){
-		int t = ReturnMatrixChain(i,k)+ReturnMatrixChain(k+1,j)+MatrixMultiply(matrix[i],matrix[k],matrix[j]);
+		int t = ReturnMatrixChain(i,k)+ReturnMatrixChain(k+1,j)+MatrixMultiply(matrix[i][0],matrix[k+1][0],matrix[j][1]);
 		if(t<u){
 			u=t;
 		}
@@ -43,10 +43,11 @@ int main(){
 	printf("请输入准备输入的矩阵数：");
 	scanf("%d",&n);
 	printf("\n");
-	printf("请输入每个矩阵的行列数：");
-	printf("\n");
-	for(int i=0;i<=n;i++){
-		scanf("%d",&matrix[i]); 
+	for(int i=0;i<n;i++){
+		printf("请输入第%d个矩阵的行数：",i+1);
+		scanf("%d",&matrix[i][0]); 
+		printf("请输入第%d个矩阵的列数：",i+1);
+		scanf("%d",&matrix[i][1]);
 	}
 	int u = ReturnMatrixChain(0,n-1);
 	printf("最小相乘次数为：%d",u);
