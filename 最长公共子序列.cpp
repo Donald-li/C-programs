@@ -9,14 +9,14 @@ int c[101][1001][1001];
 int LCSLength(int k,int n,int m){
 
 	if(c[k][n][m]!=-1) return c[k][n][m];
-//	else if(n!=0&&m!=0){
+//	else if(n!=0&&m!=0){ 
 	else if(x[n]==y[m]){
 		c[k][n][m] = LCSLength(k,n-1,m-1)+1;
 		return LCSLength(k,n-1,m-1)+1;
 	}
 	else{
 		c[k][n][m] = LCSLength(k,n,m-1);
-		return LCSLength(k,n-1,m-1);
+		return LCSLength(k,n,m-1);
 	}
 //	}
 		
@@ -38,8 +38,8 @@ int main(){
  	printf("请输入想要计算的组数:");
 	scanf("%d",&n);
 	//初始化计算，将所有与空序列计算的值设为0，作为递归出口 
-	for(int k=1;k<=100;k++){
-		for(int m = 1;m<=n;m++){
+	for(int k=0;k<=100;k++){
+		for(int m = 0;m<=n;m++){
 			for(int i=1;i<=m;i++)
 				c[k][i][0] = 0;
 			for(int j=1;j<=n;j++)
